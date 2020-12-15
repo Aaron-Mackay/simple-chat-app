@@ -23,11 +23,11 @@ io.on("connection", socket => {
 
     socket.on("login", username => {
         console.log(username, " logged in")
-        io.emit("login", username);
+        io.emit("loginState", { username, id });
     })
 
     socket.on("chat message", msg => {
-        console.log(`${id}: ${msg}`);
+        io.emit("chat message", msg);
     });
 
     socket.on("disconnect", () => {
