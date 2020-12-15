@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import io from "socket.io-client";
 import Login from "./components/Login";
-
+import OnlineUsers from "./components/OnlineUsers";
 const socket = io.connect("http://localhost:5000");
 
 class App extends Component {
@@ -29,7 +29,7 @@ class App extends Component {
 
     return (
       <div>
-        {this.state.loggedIn === true ? (
+        {this.state.isLogged === true ? (
           <div className="chatRoom">
             <h1>Logged</h1>
             <OnlineUsers onlineUsers={this.state.onlineUsers} />
