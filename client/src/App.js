@@ -8,12 +8,20 @@ class App extends Component {
   state = {
     name: undefined,
     avatar: undefined,
+    isLogged: false,
+    onlineUsers: [
+      {
+        name: "Aaron",
+        avatar: "http://www.nretnil.com/avatar/LawrenceEzekielAmos.png",
+      },
+      { name: "James", avatar: "http://www.nretnil.com/avatar/dino.png" },
+      { name: "Elliot", avatar: "http://www.nretnil.com/avatar/barrel.jpg" },
+    ],
   };
 
   loginForm(user) {
     const { name, avatar } = user;
-
-    this.setState({ name, avatar });
+    this.setState({ name, avatar, isLogged: true });
   }
 
   render() {
@@ -22,7 +30,10 @@ class App extends Component {
     return (
       <div>
         {this.state.loggedIn === true ? (
-          <h1>Logged</h1>
+          <div className="chatRoom">
+            <h1>Logged</h1>
+            <OnlineUsers onlineUsers={this.state.onlineUsers} />
+          </div>
         ) : (
           <Login loginForm={this.loginForm.bind(this)} />
         )}
