@@ -9,24 +9,33 @@ class App extends Component {
     super();
     this.state = {
       msg: "",
-      username: "",
+      name: undefined,
       onlineUsers: [],
       chat: [],
+      avatar: undefined,
+      loggedIn: false,
     };
   }
 
   componentDidMount() {
     socket.on("loginState", (user) => {
-      // Add new messages to existing messages in "chat"
+      // Add new user to onlineUsers
       this.setState({
         onlineUsers: [...this.state.onlineUsers, user]
       });
     });
 
     socket.on("disconnected", (id) => {
-      // Add new messages to existing messages in "chat"
+      // Remove user from onlineUsers
       this.setState({
         onlineUsers: [...this.state.onlineUsers].filter(x => x.id !== id)
+      });
+    });
+
+    socket.on("chat message", ({ id, msg }) => {
+      // Add new messages to existing messages in "chat"
+      this.setState({
+        chat: [...this.state.chat, { id, msg }]
       });
     });
   }
